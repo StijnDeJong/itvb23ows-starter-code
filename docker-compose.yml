@@ -1,0 +1,40 @@
+version: '3.8'
+
+services:
+  db:
+    image: mysql:8.0
+    container_name: db
+    command: --default-authentication-plugin=mysql_native_password
+    restart: always
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+    ports:
+      - "3307:3306"
+    # TODO: automatic import of sql file
+    volumes:
+      - ./mysql-dump:/database
+
+  hive-server:
+    image: hive
+    container_name: hive-server
+    restart: always
+    ports:
+      - "3000:3000"
+    external_links:
+      - db
+  
+  # jenkins:
+  #   image: jenkins
+  #   container_name: jenkins
+  #   restart: on-failure --detach --network jenkins 
+  #   environment: 
+  #     DOCKER_HOST: tcp://docker:2376
+  #     DOCKER_CERT_PATH: /certs/client 
+  #     DOCKER_TLS_VERIFY: 1 
+  #   volume: 
+  #     - jenkins-data:/var/jenkins_home
+  #     - jenkins-docker-certs:/certs/client:ro 
+  #   ports:
+  #     - 8080:8080
+  #     - 50000:50000
+
