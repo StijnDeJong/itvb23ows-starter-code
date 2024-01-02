@@ -20,9 +20,12 @@ pipeline {
 
         stage('Deploy') {
             steps {
-                // Your deployment steps
+                // Use Docker Compose with Docker Pipeline plugin
                 echo "Deploying..."
-                sh "docker-compose up -d"
+                script {
+                    docker.image('docker/compose:latest').inside('-v /var/run/docker.sock:/var/run/docker.sock') {
+                        sh 'docker-compose up -d'
+                }
             }
         }
     }
