@@ -25,6 +25,7 @@ pipeline {
                 script {
                     docker.image('docker/compose:latest').inside('-v /var/run/docker.sock:/var/run/docker.sock') {
                         sh 'docker-compose up -d'
+                    }
                 }
             }
         }
