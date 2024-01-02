@@ -1,7 +1,11 @@
 // Jenkinsfile (Declarative Pipeline)
 /* Requires the Docker Pipeline plugin */
 pipeline {
-    agent any
+    agent {
+        docker {
+            image 'docker:20.10'
+        }
+    }
 
     stages {
         stage('Build') {
