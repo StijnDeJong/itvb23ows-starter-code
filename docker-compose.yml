@@ -23,18 +23,18 @@ services:
     external_links:
       - db
   
-  # jenkins:
-  #   image: jenkins
-  #   container_name: jenkins
-  #   restart: on-failure --detach --network jenkins 
-  #   environment: 
-  #     DOCKER_HOST: tcp://docker:2376
-  #     DOCKER_CERT_PATH: /certs/client 
-  #     DOCKER_TLS_VERIFY: 1 
-  #   volume: 
-  #     - jenkins-data:/var/jenkins_home
-  #     - jenkins-docker-certs:/certs/client:ro 
-  #   ports:
-  #     - 8080:8080
-  #     - 50000:50000
+  jenkins:
+    image: jenkins
+    container_name: jenkins
+    # restart: on-failure --detach --network jenkins 
+    # environment: 
+    #   DOCKER_HOST: tcp://docker:2376
+    #   DOCKER_CERT_PATH: /certs/client 
+    #   DOCKER_TLS_VERIFY: 1 
+    # volume: 
+    #   - jenkins-data:/var/jenkins_home
+    #   - jenkins-docker-certs:/certs/client:ro 
+    ports:
+      - 8080:8080
+      - 50000:50000
 

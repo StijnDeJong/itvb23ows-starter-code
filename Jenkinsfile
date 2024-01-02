@@ -22,6 +22,7 @@ pipeline {
             steps {
                 // Your deployment steps
                 echo "Deploying..."
+                docker-compose up -d
             }
         }
     }
