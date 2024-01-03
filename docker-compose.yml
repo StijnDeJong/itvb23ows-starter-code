@@ -26,6 +26,12 @@ services:
   jenkins:
     image: jenkins
     container_name: jenkins
+    ports:
+      - "8080:8080"
+      - "50000:50000"
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
+    restart: always
     # restart: on-failure --detach --network jenkins 
     # environment: 
     #   DOCKER_HOST: tcp://docker:2376
@@ -34,7 +40,4 @@ services:
     # volume: 
     #   - jenkins-data:/var/jenkins_home
     #   - jenkins-docker-certs:/certs/client:ro 
-    ports:
-      - 8080:8080
-      - 50000:50000
 
