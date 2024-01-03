@@ -27,7 +27,7 @@ pipeline {
                 // Use Docker Compose with Docker Pipeline plugin
                 echo "Deploying..."
                 script {
-                    docker.image('docker/compose:latest').inside('-v /var/run/docker.sock:/var/run/docker.sock') {
+                    docker.image('docker/compose:latest').inside('-v', '/var/run/docker.sock:/var/run/docker.sock') {
                         sh 'docker-compose up -d'
                     }
                 }
