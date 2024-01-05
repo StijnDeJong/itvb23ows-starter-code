@@ -1,7 +1,7 @@
 // Jenkinsfile (Declarative Pipeline)
 /* Requires the Docker Pipeline plugin */
 
-@Library('vars@main') _
+@Library('vars@jenkins') _
 
 pipeline {
     agent {
