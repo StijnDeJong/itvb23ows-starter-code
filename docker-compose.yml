@@ -10,7 +10,6 @@ services:
       MYSQL_ROOT_PASSWORD: root
     ports:
       - "3307:3306"
-    # TODO: automatic import of sql file
     volumes:
       - ./mysql-dump:/database
 
@@ -32,12 +31,11 @@ services:
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock
     restart: always
-    # restart: on-failure --detach --network jenkins 
-    # environment: 
-    #   DOCKER_HOST: tcp://docker:2376
-    #   DOCKER_CERT_PATH: /certs/client 
-    #   DOCKER_TLS_VERIFY: 1 
-    # volume: 
-    #   - jenkins-data:/var/jenkins_home
-    #   - jenkins-docker-certs:/certs/client:ro 
+
+  sonarqube:
+    image: sonarqube
+    container_name: sonarqube
+    ports:
+      - 9000:9000
+      - 9092:9092
 

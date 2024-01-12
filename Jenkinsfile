@@ -25,6 +25,16 @@ pipeline {
             }
         }
 
+        stage('Sonarqube analysis...') {
+            steps {
+                // Your testing steps
+                echo "Sonarqube analysis..."
+                script {
+                    sonarqubeAnalysis()
+                }
+            }
+        }
+
         stage('Deploy') {
             steps {
                 // Use Docker Compose with Docker Pipeline plugin
