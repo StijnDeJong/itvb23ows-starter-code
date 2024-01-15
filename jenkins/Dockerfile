@@ -1,12 +1,22 @@
-FROM jenkins/jenkins:2.426.2-jdk17
+# Use the official Jenkins image as a base
+FROM jenkins/jenkins:latest
+
+# Set environment variables
+ENV JENKINS_HOME /var/jenkins_home
+
+# Copy Jenkins configurations from a backup
+COPY backup/* $JENKINS_HOME/
+
+# Switch to root user to install additional packages
 USER root
-RUN apt-get update && apt-get install -y lsb-release
-RUN curl -fsSLo /usr/share/keyrings/docker-archive-keyring.asc \
-  https://download.docker.com/linux/debian/gpg
-RUN echo "deb [arch=$(dpkg --print-architecture) \
-  signed-by=/usr/share/keyrings/docker-archive-keyring.asc] \
-  https://download.docker.com/linux/debian \
-  $(lsb_release -cs) stable" > /etc/apt/sources.list.d/docker.list
-RUN apt-get update && apt-get install -y docker-ce-cli
+
+# Install tini
+RUN apt-get update && \
+    apt-get install -y tini && \
+    rm -rf /var/lib/apt/lists/*
+
+# Switch back to the Jenkins user
 USER jenkins
-RUN jenkins-plugin-cli --plugins "blueocean docker-workflow"
+
+# Set the default command to start Jenkins using tini
+ENTRYPOINT ["/usr/bin/tini", "--", "/usr/local/bin/jenkins.sh"]
