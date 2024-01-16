@@ -5,7 +5,7 @@ def call() {
 
     docker.image(SONAR_SCANNER_IMAGE).inside {
         withSonarQubeEnv('SonarQubeServer') {
-            sh "${scannerHome}/bin/sonar-scanner -Dsonar.projectKey=${PROJECT_KEY} -Dsonar.host.url=http://sonarqube:9000"
+            sh "${scannerHome}/bin/sonar-scanner -Dsonar.projectKey=${PROJECT_KEY} -Dsonar.host.url=http://host.docker.internal:9000"
         }
     }
 }
