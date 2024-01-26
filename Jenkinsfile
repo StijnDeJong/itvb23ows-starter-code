@@ -61,8 +61,7 @@ pipeline{
                         ${scannerHome}/bin/sonar-scanner \
                         -Dsonar.projectKey=project1 \
                         -Dsonar.host.url=http://host.docker.internal:9000 \
-                        -Dsonar.login=admin \
-                        -Dsonar.password=root \
+                        -Dsonar.login=sqa_14d0156c9d24f5fe9fe35d1f30b615bc44ebd9ec \
                         -Dsonar.sources=hive
                     """                
                 }
