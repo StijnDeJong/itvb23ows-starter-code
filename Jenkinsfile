@@ -63,5 +63,4 @@ pipeline{
         }
     }
 }
-docker run --rm -e SONAR_HOST_URL="http://sonarqube:9000" -e SONAR_SCANNER_OPTS="-Dsonar.projectKey=project1" -e SONAR_TOKEN="sqa_14d0156c9d24f5fe9fe35d1f30b615bc44ebd9ec" -v ".:/usr/src" --network jenkins sonarsource/sonar-scanner-cli
 
