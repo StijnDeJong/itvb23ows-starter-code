@@ -50,13 +50,16 @@
 //     }
 // }
 
-
-agent { label '!windows' }
-stage('SonarQube') {
-  steps {
-    script { scannerHome = tool 'SonarQube Scanner' }
-    withSonarQubeEnv('SonarQubeServer') {
-      sh "${scannerHome}/bin/sonar-scanner -Dsonar.projectKey=project1"
+pipeline{
+    agent { label '!windows' }
+    stages {
+        stage('SonarQube') {
+            steps{    
+                script { scannerHome = tool 'SonarQube Scanner' }
+                withSonarQubeEnv('SonarQubeServer') {
+                    sh "${scannerHome}/bin/sonar-scanner -Dsonar.projectKey=project1"
+                }
+            }
+        }
     }
-  }
 }
