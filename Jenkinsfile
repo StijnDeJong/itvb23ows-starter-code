@@ -56,8 +56,7 @@ stage('SonarQube') {
   steps {
     script { scannerHome = tool 'SonarQube Scanner' }
     withSonarQubeEnv('SonarQubeServer') {
-      sh "${scannerHome}/bin/sonar-scanner
-          -Dsonar.projectKey=project1"
+      sh "${scannerHome}/bin/sonar-scanner -Dsonar.projectKey=project1"
     }
   }
 }
