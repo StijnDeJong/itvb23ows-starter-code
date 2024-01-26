@@ -30,7 +30,7 @@ pipeline {
                 // Your testing steps
                 echo "Sonarqube analysis..."
                 script { scannerHome = tool 'SonarQube Scanner' }
-                    withSonarQubeEnv('SonarQube') {
+                withSonarQubeEnv('SonarQube Scanner') {
                     scannerHome = tool 'SonarQube Scanner'
                     sh """ 
                         ${scannerHome}/bin/sonar-scanner -Dsonar.projectKey=project1 -Dsonar.login=sqa_14d0156c9d24f5fe9fe35d1f30b615bc44ebd9ec -Dsonar.host.url=http://host.docker.internal:9000
