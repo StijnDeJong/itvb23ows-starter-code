@@ -57,7 +57,14 @@ pipeline{
             steps{    
                 script { scannerHome = tool 'SonarQube Scanner' }
                 withSonarQubeEnv('SonarQubeServer') {
-                    sh "${scannerHome}/bin/sonar-scanner -Dsonar.projectKey=project1 -Dsonar.host.url=http://host.docker.internal:9000 -Dsonar.login=admin -Dsonar.password=root"
+                    sh """
+                        ${scannerHome}/bin/sonar-scanner \
+                        -Dsonar.projectKey=project1 \
+                        -Dsonar.host.url=http://host.docker.internal:9000 \
+                        -Dsonar.login=admin \
+                        -Dsonar.password=root \
+                        -Dsonar.sources=hive
+                    """                
                 }
             }
         }
