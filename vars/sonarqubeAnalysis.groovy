@@ -7,11 +7,9 @@ def call() {
     docker.image(SONAR_SCANNER_IMAGE).inside {
         withCredentials([string(credentialsId: 'SONAR_TOKEN', variable: 'SONAR_TOKEN')]) {
             sh """
-                docker run -e SONAR_HOST_URL=http://host.docker.internal:9000 \
-                           -e SONAR_LOGIN=${SONAR_TOKEN} \
-                           -v ${scannerHome}/bin/sonar-scanner:/sonar-scanner/bin/sonar-scanner \
+                docker run -v ${scannerHome}/bin/sonar-scanner:/sonar-scanner/bin/sonar-scanner \
                            sonarsource/sonar-scanner-cli:latest \
-                           -Dsonar.projectKey=${PROJECT_KEY} -Dsonar.login=${SONAR_TOKEN} -Dsonar.host.url=${SONAR_HOST_URL}
+                           -Dsonar.projectKey=project1 -Dsonar.login=sqa_14d0156c9d24f5fe9fe35d1f30b615bc44ebd9ec -Dsonar.host.url=http://host.docker.internal:9000
             """
         }
     }
