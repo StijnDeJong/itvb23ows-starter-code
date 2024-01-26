@@ -42,9 +42,9 @@ pipeline {
             steps {
                 // Use Docker Compose with Docker Pipeline plugin
                 echo "Deploying..."
-                script {
-                    // dockerDeploy()
-                }
+                // script {
+                //     // dockerDeploy()
+                // }
             }
         }
     }
