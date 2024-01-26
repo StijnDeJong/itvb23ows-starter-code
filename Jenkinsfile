@@ -1,7 +1,7 @@
 // Jenkinsfile (Declarative Pipeline)
 /* Requires the Docker Pipeline plugin */
 
-@Library('scripts@main') _
+// @Library('scripts@main') _
 
 pipeline {
     agent {
@@ -29,8 +29,12 @@ pipeline {
             steps {
                 // Your testing steps
                 echo "Sonarqube analysis..."
-                script {
-                    sonarqubeAnalysis()
+                script { scannerHome = tool 'SonarQube Scanner' }
+                    withSonarQubeEnv('SonarQube') {
+                    scannerHome = tool 'SonarQube Scanner'
+                    sh """ 
+                        ${scannerHome}/bin/sonar-scanner -Dsonar.projectKey=project1 -Dsonar.login=sqa_14d0156c9d24f5fe9fe35d1f30b615bc44ebd9ec -Dsonar.host.url=http://host.docker.internal:9000
+                    """
                 }
             }
         }
@@ -40,7 +44,7 @@ pipeline {
                 // Use Docker Compose with Docker Pipeline plugin
                 echo "Deploying..."
                 script {
-                    dockerDeploy()
+                    // dockerDeploy()
                 }
             }
         }
