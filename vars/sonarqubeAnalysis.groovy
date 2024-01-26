@@ -11,7 +11,7 @@ def call() {
                            -e SONAR_LOGIN=${SONAR_TOKEN} \
                            -v ${scannerHome}/bin/sonar-scanner:/sonar-scanner/bin/sonar-scanner \
                            sonarsource/sonar-scanner-cli:latest \
-                           -Dsonar.projectKey=${PROJECT_KEY} -Dsonar.login=${SONAR_LOGIN} -Dsonar.host.url=${SONAR_HOST_URL}
+                           -Dsonar.projectKey=${PROJECT_KEY} -Dsonar.login=${SONAR_TOKEN} -Dsonar.host.url=${SONAR_HOST_URL}
             """
         }
     }
