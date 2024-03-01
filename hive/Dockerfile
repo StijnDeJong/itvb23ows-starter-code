@@ -1,6 +1,6 @@
 FROM php
 WORKDIR /app
-COPY . /app
+COPY ./src/ /app
 EXPOSE 3000
 RUN docker-php-ext-install mysqli
 RUN docker-php-ext-enable mysqli

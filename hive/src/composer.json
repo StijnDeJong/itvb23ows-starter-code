@@ -1,0 +1,15 @@
+{
+    "require-dev": {
+        "phpunit/phpunit": "^10.5"
+    },
+    "autoload": {
+        "psr-4": {
+          "controllers\\": "./game/controllers",
+          "controllers\\movecontrollers\\": "./game/controllers/movecontrollers",
+          "objects\\": "./game/objects",
+          "database\\": "./database",
+          "tests\\controllers\\": "./tests/controllers",
+          "tests\\objects\\": "./tests/objects"
+        }
+    }
+}
