@@ -20,40 +20,48 @@
     use controllers\RestartController;
     use controllers\PlayController;
     use controllers\UndoController;
-    use controllers\movecontrollers\BaseMoveController;
+    use controllers\movecontrollers\AntMoveController;
+    use controllers\movecontrollers\BeetleMoveController;
+    use controllers\movecontrollers\GrasshopperMoveController;
+    use controllers\movecontrollers\QueenMoveController;
+    use controllers\movecontrollers\SpiderMoveController;
     use objects\Game;
     use objects\Board;
     use objects\Player;
 
     $database = new DatabaseService();
-    $pass_controller = new PassController($database);
-    $restart_controller = new RestartController($database);
-    $play_controller = new PlayController($database);
-    $move_controller = new BaseMoveController($database);
-    $undo_controller = new UndoController($database);
     $GLOBALS['OFFSETS'] = [[0, 1], [0, -1], [1, 0], [-1, 0], [-1, 1], [1, -1]];
 
     // Initial restart to set session vars
     if (!isset($_SESSION['game'])) {
+        $restart_controller = new RestartController($database);
         $restart_controller->restart();
     }
 
     if(array_key_exists('pass', $_POST)) {
+        $pass_controller = new PassController($database);
         $pass_controller->pass();
     }
     if(array_key_exists('restart', $_POST)) {
+        $restart_controller = new RestartController($database);
         $restart_controller->restart();
     }
     if(array_key_exists('play', $_POST)) {
-        $play_controller->play($_POST['piece'], $_POST['to']);
+        if (array_key_exists('piece', $_POST)) {
+            $play_controller = new PlayController($database);
+            $play_controller->play($_POST['piece'], $_POST['to']);
+        } else
+            $_SESSION['error'] = 'No piece selected';
     }
     if(array_key_exists('move', $_POST)) {
-        if (array_key_exists('from', $_POST))
+        if (array_key_exists('from', $_POST)) {
+            $move_controller = get_movecontroller($_POST['from'], $database);
             $move_controller->move($_POST['from'], $_POST['to']);
-        else
+        } else
             $_SESSION['error'] = 'No from position selected';
     }
     if(array_key_exists('undo', $_POST)) {
+        $undo_controller = new UndoController($database);
         $undo_controller->undo();
     }
 
@@ -73,7 +81,24 @@
     // var_dump($_SESSION['last_move']);
     echo '</pre>';
 
-
+    function get_movecontroller($position, $database) {
+        $game = unserialize($_SESSION['game']);
+        $board = $game->get_board();
+        switch ($board->get_piece_type($position)) {
+            case 'A':
+                return new AntMoveController($database);
+            case 'B':
+                return new BeetleMoveController($database);
+            case 'G':
+                return new GrasshopperMoveController($database);
+            case 'Q':
+                return new QueenMoveController($database);
+            case 'S':
+                return new SpiderMoveController($database);
+            default:
+                                                            
+        }    
+    }
 ?>
 <!DOCTYPE html>
 <html>

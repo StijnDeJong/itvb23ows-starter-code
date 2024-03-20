@@ -12,6 +12,12 @@ use function PHPUnit\Framework\assertEquals;
 
 class GameTest extends TestCase {
 
+    public static function setUpBeforeClass(): void {        
+        echo "\n";
+        echo 'Game tests:';
+        echo "\n";
+    }
+
     public function test_play_given_game_plays_piece() {
         $game = new Game();
         $game->play('Q', '0,0');

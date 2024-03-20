@@ -24,6 +24,12 @@ class PassControllerTest extends TestCase {
         $this->restart_controller = new RestartController($database);
     }
 
+    public static function setUpBeforeClass(): void {        
+        echo "\n";
+        echo 'PassController tests:';
+        echo "\n";
+    }
+
     public function test_needs_to_play_queen_given_queenless_board_at_turn_7_returns_true() {
         $this->restart_controller->restart();
         $game = unserialize($_SESSION['game']);

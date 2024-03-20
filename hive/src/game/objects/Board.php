@@ -19,7 +19,7 @@ class Board
     }
 
     public function place_piece($piece, $to, $active_player_number) {
-        $this->board[$to] = [[$active_player_number, $piece]];
+        $this->board[$to][] = [$active_player_number, $piece];
     }
 
     public function move($from, $to) {
@@ -68,10 +68,18 @@ class Board
         }
         return FALSE;
     }
+    
+    public function get_occupied_common_neighbour_count($from, $to) {
+        $common = $this->get_common_neighbouring_positions($from, $to);
+        return (
+            $this->is_position_occupied($common[0])
+            + $this->is_position_occupied($common[1])
+        );    
+    }
 
     public function get_neighbouring_positions($position) {
         $position = explode(',', $position);
-        $neighbour_positions = [];       
+        $neighbour_positions = [];
         foreach ($GLOBALS['OFFSETS'] as $pq) {
             $p = $position[0] + $pq[0];
             $q = $position[1] + $pq[1];
@@ -125,6 +133,19 @@ class Board
         if (isset($this->board[$position]))
             return count($this->board[$position]);
         return 0;
+    }
+
+    public function does_neighbour_an_occupied_position($position, $excluded = null) {
+        $neighbouring_positions = $this->get_neighbouring_positions($position);
+        foreach ($neighbouring_positions as $neighbouring_position) {
+            if ($position == $excluded) {
+                continue;
+            }
+            if ($this->is_occupied($neighbouring_position)) {
+                return True;
+            }
+        }
+        return False;
     }
 }
 

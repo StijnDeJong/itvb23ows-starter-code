@@ -23,9 +23,15 @@ class PlayControllerTest extends TestCase {
         $this->play_controller = new PlayController($database);
         $this->restart_controller = new RestartController($database);
     }
+
+    public static function setUpBeforeClass(): void {        
+        echo "\n";
+        echo 'PlayController tests:';
+        echo "\n";
+    }
     public function test_play_given_valid_piece_gets_added_to_board() {
         $this->restart_controller->restart();
-        $this->play_controller->play('Q', '0,0');
+        assertTrue($this->play_controller->play('Q', '0,0'));
         assertEquals(unserialize($_SESSION['game'])->get_board()->pop_piece('0,0'), [0, 'Q']);
     }
     public function test_play_given_needs_to_play_queen_plays_queen_is_valid() {
@@ -33,7 +39,7 @@ class PlayControllerTest extends TestCase {
         $game = unserialize($_SESSION['game']);
         $game->set_turn_number(7);
         $_SESSION['game'] = serialize($game);
-        $this->play_controller->play('Q', '0,0');
+        assertTrue($this->play_controller->play('Q', '0,0'));
         assertEquals(unserialize($_SESSION['game'])->get_board()->pop_piece('0,0'), [0, 'Q']);
     }
     public function test_play_given_needs_to_play_queen_does_not_play_queen_is_invalid() {
@@ -41,7 +47,7 @@ class PlayControllerTest extends TestCase {
         $game = unserialize($_SESSION['game']);
         $game->set_turn_number(7);
         $_SESSION['game'] = serialize($game);
-        $this->play_controller->play('B', '0,0');
+        assertFalse($this->play_controller->play('B', '0,0'));
         assertEquals($_SESSION['error'], 'Must play queen bee');
     }
     public function test_play_given_plays_piece_they_do_not_have_is_invalid() {
@@ -49,26 +55,26 @@ class PlayControllerTest extends TestCase {
         $game = unserialize($_SESSION['game']);
         $game->get_active_player()->remove_piece('Q');
         $_SESSION['game'] = serialize($game);
-        $this->play_controller->play('Q', '0,0');
+        assertFalse($this->play_controller->play('Q', '0,0'));
         assertEquals($_SESSION['error'], "Player does not have piece");
     }
     public function test_play_given_plays_piece_on_occupied_position_is_invalid() {
         $this->restart_controller->restart();
-        $this->play_controller->play('Q', '0,0');
-        $this->play_controller->play('Q', '0,0');
+        assertTrue($this->play_controller->play('Q', '0,0'));
+        assertFalse($this->play_controller->play('Q', '0,0'));
         assertEquals($_SESSION['error'], 'Board position is already occupied');
     }
     public function test_play_given_plays_piece_outside_hive_is_invalid() {
         $this->restart_controller->restart();
-        $this->play_controller->play('Q', '0,0');
-        $this->play_controller->play('Q', '2,2');
+        assertTrue($this->play_controller->play('Q', '0,0'));
+        assertFalse($this->play_controller->play('Q', '2,2'));
         assertEquals($_SESSION['error'], "Piece is played outside the hive");
     }
     public function test_play_given_plays_next_to_opponents_piece_is_invalid() {
         $this->restart_controller->restart();
-        $this->play_controller->play('Q', '0,0');
-        $this->play_controller->play('Q', '0,1');
-        $this->play_controller->play('B', '0,2');
+        assertTrue($this->play_controller->play('Q', '0,0'));
+        assertTrue($this->play_controller->play('Q', '0,1'));
+        assertFalse($this->play_controller->play('B', '0,2'));
         assertEquals($_SESSION['error'], "Board position has opposing neighbour");
     }
 }

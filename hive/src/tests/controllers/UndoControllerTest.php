@@ -26,6 +26,12 @@ class UndoControllerTest extends TestCase {
         $this->undo_controller = new UndoController($database);
         $this->restart_controller = new RestartController($database);
     }
+
+    public static function setUpBeforeClass(): void {        
+        echo "\n";
+        echo 'UndoController tests:';
+        echo "\n";
+    }
     public function test_undo_given_start_of_game_cannot_undo() {
         $this->restart_controller->restart();
         $this->undo_controller->undo();

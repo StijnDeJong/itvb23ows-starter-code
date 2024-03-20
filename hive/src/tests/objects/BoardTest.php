@@ -10,6 +10,12 @@ use function PHPUnit\Framework\assertEquals;
 
 class BoardTest extends TestCase {
 
+    public static function setUpBeforeClass(): void {        
+        echo "\n";
+        echo 'Board tests:';
+        echo "\n";
+    }
+
     public function test_pop_piece_returns_piece() {
         $board = new Board();
         $board->set_board(['0,0' => [[0, 'Q']]]);

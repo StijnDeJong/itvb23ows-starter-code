@@ -19,11 +19,12 @@ class PlayController extends Controller {
         $this->load_game_from_session();
 
         if (!$this->is_valid_play($piece, $to))
-            return;
+            return False;
         $this->game->play($piece, $to);
 
         $this->save_game_to_session();
         $this->database_service->play($piece, $to);
+        return True;
     }
 
     private function is_valid_play($piece, $to) {
