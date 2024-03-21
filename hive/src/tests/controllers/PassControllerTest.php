@@ -25,8 +25,10 @@ class PassControllerTest extends TestCase {
     }
 
     public static function setUpBeforeClass(): void {        
-        echo "\n";
         echo 'PassController tests:';
+        echo "\n";
+    }
+    public static function tearDownAfterClass(): void {
         echo "\n";
     }
 

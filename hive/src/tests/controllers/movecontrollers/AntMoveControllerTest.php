@@ -28,8 +28,10 @@ class AntMoveControllerTest extends TestCase {
     }
 
     public static function setUpBeforeClass(): void {        
-        echo "\n";
         echo 'AntMoveController tests:';
+        echo "\n";
+    }
+    public static function tearDownAfterClass(): void {
         echo "\n";
     }
 

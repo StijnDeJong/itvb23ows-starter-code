@@ -28,10 +28,13 @@ class GrasshopperMoveControllerTest extends TestCase {
     }
 
     public static function setUpBeforeClass(): void {        
-        echo "\n";
         echo 'GrasshopperMoveController tests:';
         echo "\n";
     }
+    public static function tearDownAfterClass(): void {
+        echo "\n";
+    }
+    
     public function test_move_given_valid_move_move_gets_made() {
         $this->restart_controller->restart();
         $this->play_controller->play('Q', '0,0');

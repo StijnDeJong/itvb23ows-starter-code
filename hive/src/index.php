@@ -37,34 +37,38 @@
         $restart_controller = new RestartController($database);
         $restart_controller->restart();
     }
+    $game = unserialize($_SESSION['game']);
 
-    if(array_key_exists('pass', $_POST)) {
-        $pass_controller = new PassController($database);
-        $pass_controller->pass();
-    }
-    if(array_key_exists('restart', $_POST)) {
+    if (array_key_exists('restart', $_POST)) {
         $restart_controller = new RestartController($database);
         $restart_controller->restart();
     }
-    if(array_key_exists('play', $_POST)) {
+    elseif (array_key_exists('undo', $_POST)) {
+        $undo_controller = new UndoController($database);
+        $undo_controller->undo();
+    }
+    elseif ($game->is_game_finished())
+        $_SESSION['error'] = "Game has ended";
+
+    elseif (array_key_exists('pass', $_POST)) {
+        $pass_controller = new PassController($database);
+        $pass_controller->pass();
+    }
+    elseif (array_key_exists('play', $_POST)) {
         if (array_key_exists('piece', $_POST)) {
             $play_controller = new PlayController($database);
             $play_controller->play($_POST['piece'], $_POST['to']);
         } else
             $_SESSION['error'] = 'No piece selected';
     }
-    if(array_key_exists('move', $_POST)) {
+    elseif (array_key_exists('move', $_POST)) {
         if (array_key_exists('from', $_POST)) {
             $move_controller = get_movecontroller($_POST['from'], $database);
             $move_controller->move($_POST['from'], $_POST['to']);
         } else
             $_SESSION['error'] = 'No from position selected';
     }
-    if(array_key_exists('undo', $_POST)) {
-        $undo_controller = new UndoController($database);
-        $undo_controller->undo();
-    }
-
+    // We declare $game twice so the board updates immediately after an action is made
     $game = unserialize($_SESSION['game']);
     $board = $game->get_board();
     $player_white = $game->get_player_white();

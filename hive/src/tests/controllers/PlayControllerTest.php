@@ -25,10 +25,13 @@ class PlayControllerTest extends TestCase {
     }
 
     public static function setUpBeforeClass(): void {        
-        echo "\n";
         echo 'PlayController tests:';
         echo "\n";
     }
+    public static function tearDownAfterClass(): void {
+        echo "\n";
+    }
+
     public function test_play_given_valid_piece_gets_added_to_board() {
         $this->restart_controller->restart();
         assertTrue($this->play_controller->play('Q', '0,0'));

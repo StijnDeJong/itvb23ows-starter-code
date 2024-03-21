@@ -11,8 +11,10 @@ use function PHPUnit\Framework\assertEquals;
 class BoardTest extends TestCase {
 
     public static function setUpBeforeClass(): void {        
-        echo "\n";
         echo 'Board tests:';
+        echo "\n";
+    }
+    public static function tearDownAfterClass(): void {
         echo "\n";
     }
 

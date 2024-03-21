@@ -30,6 +30,21 @@ class Board
         return !$this->board;
     }
 
+    public function get_piece($position) {
+        return end($this->board[$position]);
+    }
+
+    public function is_piece_surrounded($position) {
+        $position = explode(',', $position);
+        foreach ($GLOBALS['OFFSETS'] as $pq) {
+            $p = $position[0] + $pq[0];
+            $q = $position[1] + $pq[1];
+            if (!$this->is_position_occupied($p.",".$q))
+                return FALSE;
+        }
+        return True;
+    }
+
     public function pop_piece($position) {
         $top_piece = array_pop($this->board[$position]);
         if ($this->get_stack_height($position) == 0) unset($this->board[$position]);

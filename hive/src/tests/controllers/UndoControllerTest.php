@@ -28,8 +28,10 @@ class UndoControllerTest extends TestCase {
     }
 
     public static function setUpBeforeClass(): void {        
-        echo "\n";
         echo 'UndoController tests:';
+        echo "\n";
+    }
+    public static function tearDownAfterClass(): void {
         echo "\n";
     }
     public function test_undo_given_start_of_game_cannot_undo() {
