@@ -20,9 +20,9 @@ class AntMoveController extends MoveController {
     public function conforms_piece_specific_move_rules($from, $to) {
         $board = $this->game->get_board();        
         if ($board->is_position_occupied($to))
-            $_SESSION['error'] = 'To position is occupied';
+            $_SESSION["error"] = "To position is occupied";
         elseif (!in_array($to, $this->get_ant_moves($from)))
-            $_SESSION['error'] = 'Not a valid ant move';
+            $_SESSION["error"] = "Not a valid ant move";
         else
             return True;
         return False;
@@ -44,7 +44,16 @@ class AntMoveController extends MoveController {
         // Remove the first position as it would otherwise allow passing the turn
         array_shift($moves);
         return $moves;    
-    } 
+    }
+
+    public function does_piece_have_moves($ant_position) {
+        $this->load_game_from_session();
+        if ($this->would_move_split_hive($ant_position))
+            return False;
+        if (count($this->get_ant_moves($ant_position)) > 0)
+            $_SESSION["message"] = $ant_position . ': can still move';
+        return count($this->get_ant_moves($ant_position)) > 0;
+    }
 
 }
 ?>

@@ -56,7 +56,7 @@ class Game
     }
 
     public function play($piece, $to) {
-        if ($piece == 'Q') 
+        if ($piece == "Q") 
             $this->queen_positions[$this->get_active_player_id()] = $to;
         $this->board->place_piece($piece, $to, $this->active_player_id);
         $this->get_active_player()->remove_piece($piece);
@@ -64,7 +64,7 @@ class Game
     }
 
     public function move($from, $to) {
-        if ($this->board->get_piece($from) == 'Q')
+        if ($this->board->get_piece($from) == "Q")
             $this->queen_positions[$this->get_active_player_id()] = $to;
         $this->board->move($from, $to);
         $this->advance_turn();
@@ -98,15 +98,15 @@ class Game
         $this->is_game_finished = True;
         // Both queens surrounded is draw
         if (array_sum($result) == 2) 
-            $_SESSION['error'] = "Both queens surrounded, game finished in a draw";
+            $_SESSION["error"] = "Both queens surrounded, game finished in a draw";
 
-        // White's queen surrounded is black win 
+        // White"s queen surrounded is black win 
         elseif ($result[0]) 
-            $_SESSION['error'] = "White's queen surrounded, black wins";
+            $_SESSION["error"] = "White's queen surrounded, black wins";
 
-        // Black's queen surrounded is white win
+        // Black"s queen surrounded is white win
         else 
-            $_SESSION['error'] = "Black's queen surrounded, white wins";
+            $_SESSION["error"] = "Black's queen surrounded, white wins";
         return True;
     }
 }

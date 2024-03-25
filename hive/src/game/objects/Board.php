@@ -35,8 +35,8 @@ class Board
     }
 
     public function is_piece_surrounded($position) {
-        $position = explode(',', $position);
-        foreach ($GLOBALS['OFFSETS'] as $pq) {
+        $position = explode(",", $position);
+        foreach ($GLOBALS["OFFSETS"] as $pq) {
             $p = $position[0] + $pq[0];
             $q = $position[1] + $pq[1];
             if (!$this->is_position_occupied($p.",".$q))
@@ -72,10 +72,10 @@ class Board
     }
 
     public function are_neighbours($a, $b) {
-        $a = explode(',', $a);
-        $b = explode(',', $b);
+        $a = explode(",", $a);
+        $b = explode(",", $b);
 
-        foreach ($GLOBALS['OFFSETS'] as $pq) {
+        foreach ($GLOBALS["OFFSETS"] as $pq) {
             $p = $b[0] + $pq[0];
             $q = $b[1] + $pq[1];
             if ($a == [$p, $q])
@@ -93,9 +93,9 @@ class Board
     }
 
     public function get_neighbouring_positions($position) {
-        $position = explode(',', $position);
+        $position = explode(",", $position);
         $neighbour_positions = [];
-        foreach ($GLOBALS['OFFSETS'] as $pq) {
+        foreach ($GLOBALS["OFFSETS"] as $pq) {
             $p = $position[0] + $pq[0];
             $q = $position[1] + $pq[1];
             $neighbour_positions[] = $p.",".$q;
@@ -123,14 +123,14 @@ class Board
 
     public function get_move_positions() {
         $positions = [];
-        foreach ($GLOBALS['OFFSETS'] as $pq) {
+        foreach ($GLOBALS["OFFSETS"] as $pq) {
             foreach (array_keys($this->board) as $pos) {
-                $pq2 = explode(',', $pos);
-                $positions[] = ($pq[0] + $pq2[0]).','.($pq[1] + $pq2[1]);
+                $pq2 = explode(",", $pos);
+                $positions[] = ($pq[0] + $pq2[0]).",".($pq[1] + $pq2[1]);
             }
         }
         $positions = array_unique($positions);
-        if (!$positions) $positions[] = '0,0';
+        if (!$positions) $positions[] = "0,0";
         return $positions;
     }
 

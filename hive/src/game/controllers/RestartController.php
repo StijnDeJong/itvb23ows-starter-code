@@ -18,9 +18,9 @@ class RestartController extends Controller
 
     public function restart()
     {
-        unset($_SESSION['error']);
-        $_SESSION['game'] = serialize(new Game());
-        $_SESSION['game_id'] = $this->database_service->get_last_game_id();
+        unset($_SESSION["error"]);
+        $_SESSION["game"] = serialize(new Game());
+        $_SESSION["game_id"] = $this->database_service->get_last_game_id();
         $this->database_service->start();
     }
 }

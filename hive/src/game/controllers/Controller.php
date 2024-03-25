@@ -13,10 +13,10 @@ abstract class Controller {
     }
 
     protected function load_game_from_session() {
-        $this->game = unserialize($_SESSION['game']);
+        $this->game = unserialize($_SESSION["game"]);
     }
     protected function save_game_to_session() {
-        $_SESSION['game'] = serialize($this->game);       
+        $_SESSION["game"] = serialize($this->game);       
     }
     protected function needs_to_play_queen() {
         // Because we force both players to play the queen at their 4th turn, after their 5th turn the check is no longer needed

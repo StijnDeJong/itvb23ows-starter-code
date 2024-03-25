@@ -20,9 +20,9 @@ class SpiderMoveController extends MoveController {
     public function conforms_piece_specific_move_rules($from, $to) {
         $board = $this->game->get_board();        
         if ($board->is_position_occupied($to))
-            $_SESSION['error'] = 'To position is occupied';
+            $_SESSION["error"] = "To position is occupied";
         elseif (!in_array($to, $this->get_spider_moves($from)))
-            $_SESSION['error'] = 'Not a valid spider move';
+            $_SESSION["error"] = "Not a valid spider move";
         else
             return True;
         return False;
@@ -47,6 +47,15 @@ class SpiderMoveController extends MoveController {
         if ($iteration == 3)
             $this->load_game_from_session();
         return $moves;
+    }
+
+    public function does_piece_have_moves($spider_position) {
+        $this->load_game_from_session();
+        if ($this->would_move_split_hive($spider_position))
+            return False;
+        if (count($this->get_spider_moves($spider_position)) > 0)
+            $_SESSION["message"] = $spider_position . ': can still move';
+        return count($this->get_spider_moves($spider_position)) > 0;
     }
 }
 ?>

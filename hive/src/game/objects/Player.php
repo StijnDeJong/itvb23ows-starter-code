@@ -14,6 +14,10 @@ class Player
         return $this->hand;
     }
 
+    public function set_hand($hand) {
+        $this->hand = $hand;
+    }
+
     public function remove_piece($piece) {
         $this->hand[$piece]--;
     }
@@ -31,7 +35,15 @@ class Player
     }
 
     public function has_played_queen() {
-        return $this->hand['Q'] == 0;
+        return $this->hand["Q"] == 0;
+    }
+
+    public function has_pieces_left() {
+        foreach ($this->hand as $piece => $count) {
+            if ($count > 0)
+                return True;
+        }
+        return False;
     }
 
 }

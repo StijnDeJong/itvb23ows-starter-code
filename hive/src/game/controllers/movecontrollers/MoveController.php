@@ -42,19 +42,19 @@ abstract class MoveController extends Controller {
         $active_player_id = $this->game->get_active_player_id();
 
         if ($this->needs_to_play_queen())
-            $_SESSION['error'] = 'Must play queen bee';
+            $_SESSION["error"] = "Must play queen bee";
         elseif ($from == $to)
-            $_SESSION['error'] = 'From cannot equal to';
+            $_SESSION["error"] = "From cannot equal to";
         elseif (!$board->is_position_occupied($from))
-            $_SESSION['error'] = 'From position is empty';
+            $_SESSION["error"] = "From position is empty";
         elseif (!$active_player->has_played_queen())
-            $_SESSION['error'] = "Queen bee has not been played yet";
-        elseif (!$board->has_neighBour($to, $from) && !$board->is_position_occupied($to))
-            $_SESSION['error'] = "Piece moved outside the hive";
+            $_SESSION["error"] = "Queen bee has not been played yet";
+        elseif (!$board->has_neighbour($to, $from) && !$board->is_position_occupied($to) && $board->get_stack_height($from) < 2)
+            $_SESSION["error"] = "Piece moved outside the hive";
         elseif ($this->would_move_split_hive($from)) 
-            $_SESSION['error'] = "Move would split hive";
+            $_SESSION["error"] = "Move would split hive";
         elseif ($board->get_id_of_owner_of_piece($from) != $active_player_id)
-            $_SESSION['error'] = "Piece is not owned by player";
+            $_SESSION["error"] = "Piece is not owned by player";
         else
             return TRUE;
         return FALSE;
@@ -66,13 +66,15 @@ abstract class MoveController extends Controller {
         $board = $this->game->get_board();
         $occupied_positions = array_keys($board->get_board());
 
-        // Removes piece from the board so we can check whether the hive is split when moving it
-        $occupied_positions = array_diff($occupied_positions, array($from));
+        // Removes piece from the board so we can check whether the hive is split when moving it, but not when moving down a stack
+        if ($board->get_stack_height($from) < 2)
+            $occupied_positions = array_diff($occupied_positions, array($from));
+
         $queue = [array_shift($occupied_positions)];
 
         while ($queue) {
-            $next = explode(',', array_shift($queue));
-            foreach ($GLOBALS['OFFSETS'] as $pq) {
+            $next = explode(",", array_shift($queue));
+            foreach ($GLOBALS["OFFSETS"] as $pq) {
                 list($p, $q) = $pq;
                 $p += $next[0];
                 $q += $next[1];
@@ -104,15 +106,4 @@ abstract class MoveController extends Controller {
         }
         return $sub_moves;
     }
-
-
-
-
-
-
-
-
-
-
-
 }

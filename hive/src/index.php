@@ -77,13 +77,6 @@
     $active_player_id = $game->get_active_player_id();
     $move_positions = $board->get_move_positions();
     $play_positions = $board->get_play_positions();
-    echo '<pre>';
-    // var_dump($board);
-    // var_dump('asxdcfvgbhnjk,;terdswdfghjk');
-
-    // var_dump($to);
-    // var_dump($_SESSION['last_move']);
-    echo '</pre>';
 
     function get_movecontroller($position, $database) {
         $game = unserialize($_SESSION['game']);
@@ -100,7 +93,7 @@
             case 'S':
                 return new SpiderMoveController($database);
             default:
-                                                            
+                
         }    
     }
 ?>
@@ -212,6 +205,7 @@
             <input type="submit" name="restart" value="Restart">
         </form>
         <strong><?php if (isset($_SESSION['error'])) echo($_SESSION['error']); unset($_SESSION['error']); ?></strong>
+        <strong><?php if (isset($_SESSION['message'])) echo($_SESSION['message']); unset($_SESSION['message']); ?></strong>
         <ul>
             <?php
                 $result = $database->get_previous_turns();
