@@ -106,7 +106,7 @@ class AntMoveControllerTest extends TestCase {
         assertFalse($this->move_controller->move("1,1", "0,0"));
         assertEquals($_SESSION["error"], "Not a valid ant move");
     }
-    public function test_move_given_hole_between_from_and_to_is_ant_will_take_the_extra_move_to_go_into_hole_first_is_valid() {
+    public function test_move_given_hole_between_from_and_to_is_ant_will_go_into_hole_first_is_valid() {
         $this->restart_controller->restart();
 
         $game = unserialize($_SESSION["game"]);

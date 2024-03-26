@@ -60,7 +60,7 @@ class PassController extends Controller{
         return False;
     }
 
-    function get_movecontroller($piece) {
+    private function get_movecontroller($piece) {
         switch ($piece) {
             case "A":
                 return new AntMoveController($this->database_service);

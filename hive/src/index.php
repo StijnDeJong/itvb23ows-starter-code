@@ -1,19 +1,7 @@
 <?php
     session_start();
 
-    require 'vendor/autoload.php';
-    
-    // include_once 'game/utils/util.php';
-    // require_once 'database/DatabaseService.php';
-    // require_once 'game/controllers/Controller.php';
-    // require_once 'game/controllers/PassController.php';
-    // require_once 'game/controllers/RestartController.php';
-    // require_once 'game/controllers/PlayController.php';
-    // require_once 'game/controllers/UndoController.php';
-    // require_once 'game/controllers/movecontrollers/MoveController.php';
-    // require_once 'game/objects/Game.php';
-    // require_once 'game/objects/Board.php';
-    // require_once 'game/objects/Player.php';
+    require_once 'vendor/autoload.php';
 
     use database\DatabaseService;
     use controllers\PassController;
@@ -98,7 +86,7 @@
     }
 ?>
 <!DOCTYPE html>
-<html>
+<html lang="en">
     <head>
         <title>Hive</title>
         <link rel="stylesheet" href="css/main.css">
@@ -204,8 +192,14 @@
         <form method="post">
             <input type="submit" name="restart" value="Restart">
         </form>
-        <strong><?php if (isset($_SESSION['error'])) echo($_SESSION['error']); unset($_SESSION['error']); ?></strong>
-        <strong><?php if (isset($_SESSION['message'])) echo($_SESSION['message']); unset($_SESSION['message']); ?></strong>
+        <strong><?php if (isset($_SESSION['error'])) {
+            echo($_SESSION['error']);
+            unset($_SESSION['error']);
+        } ?></strong>
+        <strong><?php if (isset($_SESSION['message'])) {
+            echo($_SESSION['message']);
+            unset($_SESSION['message']);
+        } ?></strong>
         <ul>
             <?php
                 $result = $database->get_previous_turns();

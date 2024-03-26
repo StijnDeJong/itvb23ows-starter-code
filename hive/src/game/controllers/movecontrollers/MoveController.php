@@ -49,7 +49,11 @@ abstract class MoveController extends Controller {
             $_SESSION["error"] = "From position is empty";
         elseif (!$active_player->has_played_queen())
             $_SESSION["error"] = "Queen bee has not been played yet";
-        elseif (!$board->has_neighbour($to, $from) && !$board->is_position_occupied($to) && $board->get_stack_height($from) < 2)
+        elseif (
+            !$board->has_neighbour($to, $from) 
+            && !$board->is_position_occupied($to) 
+            && $board->get_stack_height($from) < 2
+        )
             $_SESSION["error"] = "Piece moved outside the hive";
         elseif ($this->would_move_split_hive($from)) 
             $_SESSION["error"] = "Move would split hive";
@@ -60,13 +64,14 @@ abstract class MoveController extends Controller {
         return FALSE;
     }
 
-    abstract function conforms_piece_specific_move_rules($from, $to);
+    abstract protected function conforms_piece_specific_move_rules($from, $to);
 
     protected function would_move_split_hive($from) {
         $board = $this->game->get_board();
         $occupied_positions = array_keys($board->get_board());
 
-        // Removes piece from the board so we can check whether the hive is split when moving it, but not when moving down a stack
+        // Removes piece from the board so we can check whether the hive is split when moving it,
+        //  but not when moving down a stack
         if ($board->get_stack_height($from) < 2)
             $occupied_positions = array_diff($occupied_positions, array($from));
 

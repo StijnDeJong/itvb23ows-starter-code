@@ -54,7 +54,8 @@ pipeline{
     agent { label '!windows' }
     stages {
         stage('SonarQube') {
-            steps{    
+            steps {
+                echo "Sonarqubing..."
                 script { scannerHome = tool 'SonarQube Scanner' }
                 withSonarQubeEnv('SonarQubeServer') {
                     sh """
@@ -65,6 +66,13 @@ pipeline{
                     """                
                         // -Dsonar.sources=hive
                 }
+            }
+        }
+        stage('Testing') {
+            steps {
+                echo "Testing..."
+                sh "./hive/src/vendor/bin/phpunit"
+
             }
         }
     }

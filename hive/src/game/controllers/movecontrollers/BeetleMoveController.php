@@ -23,7 +23,11 @@ class BeetleMoveController extends MoveController {
             $_SESSION["error"] = "To position does not neighbour from position";
         else {
             $common_occupied_neighbours = $board->get_occupied_common_neighbour_count($from, $to);
-            if ($common_occupied_neighbours == 0 && !$board->is_position_occupied($to) && $board->get_stack_height($from) < 2)
+            if (
+                $common_occupied_neighbours == 0 
+                && !$board->is_position_occupied($to) 
+                && $board->get_stack_height($from) < 2
+            )
                 $_SESSION["error"] = "Piece loses contact with the hive during movement";
             elseif ($common_occupied_neighbours == 2 && !$this->can_beetle_slide($from, $to))
                 $_SESSION["error"] = "Tile must slide";

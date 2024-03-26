@@ -12,41 +12,53 @@ class DatabaseService
         // $this->database = new mysqli('localhost', 'root', 'root', 'hive_db', '3307');
     }
 
-    function get_state() {
+    public function get_state() {
         return $_SESSION["game"];
     }
 
-    function set_state($state) {
+    public function set_state($state) {
         $_SESSION['game'] = $state;
     }
 
     public function start() {
         $state = $this->get_state();
-        $stmt = $this->database->prepare('insert into moves (game_id, type, move_from, move_to, previous_id, state) values (?, "init", null, null, null, ?)');
+        $stmt = $this->database->prepare(
+            'insert into moves (game_id, type, move_from, move_to, previous_id, state)
+             values (?, "init", null, null, null, ?)'
+        );
         $stmt->bind_param('is', $_SESSION['game_id'], $state);
         $stmt->execute();
         $_SESSION['last_move'] = $this->database->insert_id;
     }
 
-    function pass() {
+    public function pass() {
         $state = $this->get_state();
-        $stmt = $this->database->prepare('insert into moves (game_id, type, move_from, move_to, previous_id, state) values (?, "pass", null, null, ?, ?)');
+        $stmt = $this->database->prepare(
+            'insert into moves (game_id, type, move_from, move_to, previous_id, state)
+             values (?, "pass", null, null, ?, ?)'
+        );
         $stmt->bind_param('iis', $_SESSION['game_id'], $_SESSION['last_move'], $state);
         $stmt->execute();
         $_SESSION['last_move'] = $this->database->insert_id;
     }
 
-    function play($piece, $to) {
+    public function play($piece, $to) {
         $state = $this->get_state();
-        $stmt = $this->database->prepare('insert into moves (game_id, type, move_from, move_to, previous_id, state) values (?, "play", ?, ?, ?, ?)');
+        $stmt = $this->database->prepare(
+            'insert into moves (game_id, type, move_from, move_to, previous_id, state)
+             values (?, "play", ?, ?, ?, ?)'
+        );
         $stmt->bind_param('issis', $_SESSION['game_id'], $piece, $to, $_SESSION['last_move'], $state);
         $stmt->execute();
         $_SESSION['last_move'] = $this->database->insert_id;
     }
 
-    function move($from, $to) {
+    public function move($from, $to) {
         $state = $this->get_state();
-        $stmt = $this->database->prepare('insert into moves (game_id, type, move_from, move_to, previous_id, state) values (?, "move", ?, ?, ?, ?)');
+        $stmt = $this->database->prepare(
+            'insert into moves (game_id, type, move_from, move_to, previous_id, state)
+             values (?, "move", ?, ?, ?, ?)'
+        );
         $stmt->bind_param('issis', $_SESSION['game_id'], $from, $to, $_SESSION['last_move'], $state);
         $stmt->execute();
         $_SESSION['last_move'] = $this->database->insert_id;

@@ -19,7 +19,8 @@ abstract class Controller {
         $_SESSION["game"] = serialize($this->game);       
     }
     protected function needs_to_play_queen() {
-        // Because we force both players to play the queen at their 4th turn, after their 5th turn the check is no longer needed
+        // Because we force both players to play the queen at their 4th turn,
+        //  after their 5th turn the check is no longer needed
         return (
             $this->game->get_turn_number() <= 8 &&
             $this->game->get_turn_number() >= 7 &&
