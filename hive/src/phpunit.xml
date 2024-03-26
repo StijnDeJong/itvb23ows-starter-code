@@ -2,7 +2,7 @@
 <phpunit bootstrap="./bootstrap.php" displayDetailsOnTestsThatTriggerWarnings="true">
     <testsuites>
         <testsuite name="Your Application Test Suite">
-            <directory>./hive/src/tests</directory>
+            <directory>./tests</directory>
         </testsuite>
     </testsuites>
 </phpunit>
