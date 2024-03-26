@@ -53,19 +53,31 @@
 pipeline{
     agent { label '!windows' }
     stages {
+        stage('Build') {
+            steps {
+                // Clone your source code repository
+                git 'https://github.com/StijnDeJong/itvb23ows-starter-code.git'
+                // Build Docker images if necessary
+                sh 'docker build -t hive hive/.'
+            }
+        }
         stage('Testing') {
             agent {
                 docker {
-                    // Specify the Docker image for Jenkins agent
-                    image 'jenkins/jnlp-slave:latest'
-                    // Specify the Docker image for the Hive server
-                    args '-v /var/run/docker.sock:/var/run/docker.sock -v /usr/bin/docker:/usr/bin/docker hive-server'
+                    // Use the Docker image with your unit tests environment
+                    image 'hive'
+                    // Mount the Docker socket for access to other containers
+                    args '-v /var/run/docker.sock:/var/run/docker.sock'
                 }
             }
             steps {
                 echo "Testing..."
-                sh 'docker exec hive-server vendor/bin/phpunit'
-
+                script {
+                    // Run PHPUnit tests within the 'hive' container
+                    docker.image('hive').inside {
+                        sh 'vendor/bin/phpunit'
+                    }
+                }
             }
         }
         stage('SonarQube') {
