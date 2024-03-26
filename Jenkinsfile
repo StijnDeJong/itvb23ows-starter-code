@@ -56,7 +56,7 @@ pipeline{
         stage('Testing') {
             steps {
                 echo "Testing..."
-                sh 'docker exec ./vendor/bin/phpunit'
+                sh 'docker exec hive-server vendor/bin/phpunit'
 
             }
         }
