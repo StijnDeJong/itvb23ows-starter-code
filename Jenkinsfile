@@ -53,6 +53,13 @@
 pipeline{
     agent { label '!windows' }
     stages {
+        stage('Testing') {
+            steps {
+                echo "Testing..."
+                sh 'docker exec -it ./hive/src/vendor/bin/phpunit'
+
+            }
+        }
         stage('SonarQube') {
             steps {
                 echo "Sonarqubing..."
@@ -66,13 +73,6 @@ pipeline{
                     """                
                         // -Dsonar.sources=hive
                 }
-            }
-        }
-        stage('Testing') {
-            steps {
-                echo "Testing..."
-                sh "./hive/src/vendor/bin/phpunit"
-
             }
         }
     }
