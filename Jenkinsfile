@@ -54,6 +54,14 @@ pipeline{
     agent { label '!windows' }
     stages {
         stage('Testing') {
+            agent {
+                docker {
+                    // Specify the Docker image for Jenkins agent
+                    image 'jenkins/jnlp-slave:latest'
+                    // Specify the Docker image for the Hive server
+                    args '-v /var/run/docker.sock:/var/run/docker.sock -v /usr/bin/docker:/usr/bin/docker hive-server'
+                }
+            }
             steps {
                 echo "Testing..."
                 sh 'docker exec hive-server vendor/bin/phpunit'
