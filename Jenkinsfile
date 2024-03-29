@@ -57,7 +57,7 @@ pipeline{
             steps {
                 echo "Building..."
                 // Clone your source code repository
-                git 'https://github.com/StijnDeJong/itvb23ows-starter-code.git'
+                git branch: 'main', url: 'https://github.com/StijnDeJong/itvb23ows-starter-code.git'
                 // Build Docker images if necessary
                 sh 'docker build -t hive hive/.'
             }
