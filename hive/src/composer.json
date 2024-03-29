@@ -8,6 +8,7 @@
           "controllers\\movecontrollers\\": "./game/controllers/movecontrollers",
           "objects\\": "./game/objects",
           "database\\": "./database",
+          "ai\\": "./ai",
           "tests\\controllers\\": "./tests/controllers",
           "tests\\objects\\": "./tests/objects"
         }

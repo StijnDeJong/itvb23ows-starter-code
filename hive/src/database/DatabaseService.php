@@ -9,7 +9,6 @@ class DatabaseService
 
     public function __construct() {
         $this->database = new mysqli('db', 'root', 'root', 'hive_db', '3306');
-        // $this->database = new mysqli('localhost', 'root', 'root', 'hive_db', '3307');
     }
 
     public function get_state() {

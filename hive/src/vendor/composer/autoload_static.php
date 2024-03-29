@@ -30,6 +30,10 @@ class ComposerStaticInitc7528e873b1f184cadc1ac4e6488ee95
             'controllers\\movecontrollers\\' => 28,
             'controllers\\' => 12,
         ),
+        'a' => 
+        array (
+            'ai\\' => 3,
+        ),
         'P' => 
         array (
             'PhpParser\\' => 10,
@@ -64,6 +68,10 @@ class ComposerStaticInitc7528e873b1f184cadc1ac4e6488ee95
         'controllers\\' => 
         array (
             0 => __DIR__ . '/../..' . '/game/controllers',
+        ),
+        'ai\\' => 
+        array (
+            0 => __DIR__ . '/../..' . '/ai',
         ),
         'PhpParser\\' => 
         array (
@@ -951,7 +959,6 @@ class ComposerStaticInitc7528e873b1f184cadc1ac4e6488ee95
         'PHPUnit\\Util\\PHP\\AbstractPhpProcess' => __DIR__ . '/..' . '/phpunit/phpunit/src/Util/PHP/AbstractPhpProcess.php',
         'PHPUnit\\Util\\PHP\\DefaultPhpProcess' => __DIR__ . '/..' . '/phpunit/phpunit/src/Util/PHP/DefaultPhpProcess.php',
         'PHPUnit\\Util\\PHP\\PhpProcessException' => __DIR__ . '/..' . '/phpunit/phpunit/src/Util/Exception/PhpProcessException.php',
-        'PHPUnit\\Util\\PHP\\WindowsPhpProcess' => __DIR__ . '/..' . '/phpunit/phpunit/src/Util/PHP/WindowsPhpProcess.php',
         'PHPUnit\\Util\\Reflection' => __DIR__ . '/..' . '/phpunit/phpunit/src/Util/Reflection.php',
         'PHPUnit\\Util\\Test' => __DIR__ . '/..' . '/phpunit/phpunit/src/Util/Test.php',
         'PHPUnit\\Util\\ThrowableToStringMapper' => __DIR__ . '/..' . '/phpunit/phpunit/src/Util/ThrowableToStringMapper.php',

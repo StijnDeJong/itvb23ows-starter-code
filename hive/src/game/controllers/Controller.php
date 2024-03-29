@@ -16,7 +16,7 @@ abstract class Controller {
         $this->game = unserialize($_SESSION["game"]);
     }
     protected function save_game_to_session() {
-        $_SESSION["game"] = serialize($this->game);       
+        $_SESSION["game"] = serialize($this->game);
     }
     protected function needs_to_play_queen() {
         // Because we force both players to play the queen at their 4th turn,

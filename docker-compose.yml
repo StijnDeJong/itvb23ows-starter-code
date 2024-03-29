@@ -22,6 +22,12 @@ services:
     external_links:
       - db
   
+  hive-ai:
+    image: hive-ai
+    container_name: hive-ai
+    ports:
+      - "5000:5000"
+
   # jenkins:
   #   image: jenkins
   #   container_name: jenkins

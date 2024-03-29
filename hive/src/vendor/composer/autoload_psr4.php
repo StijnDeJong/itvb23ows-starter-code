@@ -12,6 +12,7 @@ return array(
     'database\\' => array($baseDir . '/database'),
     'controllers\\movecontrollers\\' => array($baseDir . '/game/controllers/movecontrollers'),
     'controllers\\' => array($baseDir . '/game/controllers'),
+    'ai\\' => array($baseDir . '/ai'),
     'PhpParser\\' => array($vendorDir . '/nikic/php-parser/lib/PhpParser'),
     'DeepCopy\\' => array($vendorDir . '/myclabs/deep-copy/src/DeepCopy'),
 );

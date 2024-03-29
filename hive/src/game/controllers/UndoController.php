@@ -18,9 +18,10 @@ class UndoController extends Controller {
         $this->load_game_from_session();
         if ($this->game->get_turn_number() == 1) {            
             $_SESSION["error"] = "Cannot undo at the start of the game";
-            return;
+            return False;
         }
         $this->database_service->undo();
+        return True;
         
     }
 

@@ -16,6 +16,7 @@
     use objects\Game;
     use objects\Board;
     use objects\Player;
+    use ai\AiService;
 
     $database = new DatabaseService();
     $GLOBALS['OFFSETS'] = [[0, 1], [0, -1], [1, 0], [-1, 0], [-1, 1], [1, -1]];
@@ -56,8 +57,12 @@
         } else
             $_SESSION['error'] = 'No from position selected';
     }
-    // We declare $game twice so the board updates immediately after an action is made
-    $game = unserialize($_SESSION['game']);
+    elseif (array_key_exists('ai', $_POST)) {
+        $ai = new AiService($database);
+        $ai->make_move();
+    }
+
+    $game = unserialize($_SESSION['game']);  
     $board = $game->get_board();
     $player_white = $game->get_player_white();
     $player_black = $game->get_player_black();
@@ -185,6 +190,9 @@
 
         <form method="post">
             <input type="submit" name="pass" value="Pass">
+        </form>
+        <form method="post">
+            <input type="submit" name="ai" value="AI">
         </form>
         <form method="post">
             <input type="submit" name="undo" value="Undo">
